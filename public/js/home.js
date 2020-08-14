@@ -12,7 +12,7 @@ xmlhttp.onreadystatechange = function () {
 };
 
 function addPolygoneToMap(ar) {
-    
+
     var polygon = L.polygon(ar, {color: 'red'}).addTo(map);
 }
 
@@ -91,7 +91,7 @@ let roomLabels = [
     {lat: -147, lng: 153},
     {lat: -150, lng: 236.5},
     {lat: -86, lng: 332},
-   
+
    /*
     {lat: -102.5, lng: 306},
 
@@ -431,7 +431,7 @@ function addPolygonToRoom(room) {
     ];
     addPolygoneToMap(latlngs)
     }
-    
+
     function alertIfMoreThanThreeInRoom(roomsPerson, room) {
     if (roomsPerson.length >= 3)
     addPolygonToRoom(room)
@@ -459,7 +459,7 @@ if ("WebSocket" in window) {
 
     ws.onopen = function () {
         // Web Socket is connected
-        console.info("Connection is opened...");
+        console.info("Connection is opened..");
         $('body').click()
     };
 
@@ -495,6 +495,12 @@ if ("WebSocket" in window) {
 
 
 for (var i=0 ;i<100 ; i++) {
+
+    addPerson(7, {id: 5, name: "ouala eddine2"});
+    addPerson(7, {id: 5, name: "ouala eddine2"});
+    addPerson(7, {id: 5, name: "ouala eddine2"});
+    addPerson(7, {id: 5, name: "ouala eddine2"});
+    addPerson(7, {id: 5, name: "ouala eddine2"});
     addPerson(7, {id: 5, name: "ouala eddine2"});
     addPerson(7, {id: 3, name: "ouala"});
     addPerson(7, {id: 4, name: "trgtgre rthrteht"});
