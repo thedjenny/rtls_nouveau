@@ -122,7 +122,7 @@ let roomLabels = [
     {lat: -204, lng: 356},//30
     {lat: -159.5, lng: 193.5},
     {lat: -161, lng: 303.5},*/
-];28
+];
 
 initMap();
 
@@ -159,13 +159,15 @@ function initMap() {
 
     L.control.attribution({
         prefix: false
-    }).addAttribution('<a href="#">seghiri.takieddine@univ-constantine2.dz</a>').addTo(map);
+    }).addAttribution('<a href="#">seghiri.takieddine@univ-constantine2.dz , benchetra.hamza@univ-constantine2.dz</a>').addTo(map);
 
     function clicked(e) {
         console.log(e.latlng)
     }
 
     map.on('click', clicked);
+
+
 
     initLabelsWithPopups();
 }
@@ -474,6 +476,7 @@ if ("WebSocket" in window) {
     ws.onmessage = function (evt) {
         var received_msg = evt.data;
         received_msg = JSON.parse(received_msg);
+
         // noinspection EqualityComparisonWithCoercionJS
         if (received_msg.type == "position") {
            // addPerson(received_msg.room, received_msg.person);
@@ -487,6 +490,7 @@ if ("WebSocket" in window) {
            // showAlertNotification(received_msg.person, chambres_list[received_msg.room - 1]);
          var t_corners=  chambres_list[received_msg.room-1].corners;
          var latlngs = [[t_corners[0].x,t_corners[0].y ],[t_corners[1].x,t_corners[1].y ],[t_corners[2].x,t_corners[2].y ],[t_corners[3].x,t_corners[3].y ]];
+         console.log(latlngs);
            addPolygoneToMap(latlngs);
         }
     };
@@ -566,12 +570,12 @@ if ("WebSocket" in window) {
 
 
 
-for (var i=0 ;i<100 ; i++) {
+for (var i=0 ;i<10 ; i++) {
 
 
-    addPerson(2, {id: 5, name: "ouala eddine2"});
-    addPerson(2, {id: 5, name: "ouala eddine2"});
-    addPerson(2, {id: 3, name: "ouala"});
-    addPerson(2, {id: 4, name: "trgtgre rthrteht"});
-    addPerson(2, {id: 6, name: "oooooo rthrteht"});
+    addPerson(5, {id: 5, name: "ouala eddine2"});
+
+    addPerson(5, {id: 3, name: "ouala"});
+    addPerson(5, {id: 4, name: "trgtgre rthrteht"});
+    addPerson(5, {id: 6, name: "oooooo rthrteht"});
     }
