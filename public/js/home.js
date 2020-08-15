@@ -169,7 +169,7 @@ function initMap() {
 
 
 
-    initLabelsWithPopups();
+    //initLabelsWithPopups();
 }
 
 function initLabelsWithPopups() {
@@ -185,6 +185,7 @@ function initLabelsWithPopups() {
             iconAnchor: [20, 20],
             popupAnchor: [0, -21],
         });
+
 
         var marker = L.marker(m.geometry.coordinates, {
             icon: customPin
@@ -433,6 +434,7 @@ function deleteFromAllRoomsExceptTheOne(person, room) {
 function addPolygonToRoom(room) {
     var t_corners = chambres_list[room].corners;
     console.log(chambres_list[room]);
+
     var latlngs = [
     [t_corners[0].x, t_corners[0].y],
     [t_corners[1].x, t_corners[1].y],
@@ -489,9 +491,9 @@ if ("WebSocket" in window) {
         if (received_msg.type == "alert") {
            // showAlertNotification(received_msg.person, chambres_list[received_msg.room - 1]);
          var t_corners=  chambres_list[received_msg.room-1].corners;
-         var latlngs = [[t_corners[0].x,t_corners[0].y ],[t_corners[1].x,t_corners[1].y ],[t_corners[2].x,t_corners[2].y ],[t_corners[3].x,t_corners[3].y ]];
-         console.log(latlngs);
-           addPolygoneToMap(latlngs);
+
+            console.log(latlngs);
+           addPolygoneToMap(t_corners);
         }
     };
 
@@ -573,9 +575,9 @@ if ("WebSocket" in window) {
 for (var i=0 ;i<10 ; i++) {
 
 
-    addPerson(5, {id: 5, name: "ouala eddine2"});
+    addPerson(3, {id: 5, name: "ouala eddine2"});
 
-    addPerson(5, {id: 3, name: "ouala"});
-    addPerson(5, {id: 4, name: "trgtgre rthrteht"});
-    addPerson(5, {id: 6, name: "oooooo rthrteht"});
+    addPerson(3, {id: 3, name: "ouala"});
+    addPerson(3, {id: 4, name: "trgtgre rthrteht"});
+    addPerson(3, {id: 6, name: "oooooo rthrteht"});
     }
