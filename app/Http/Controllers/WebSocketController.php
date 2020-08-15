@@ -59,16 +59,23 @@ class WebSocketController extends Controller implements MessageComponentInterfac
     {
         /** @noinspection PhpComposerExtensionStubsInspection */
        echo $msg."\n";
-    
+
         $event = json_decode($msg);
-        
-       $this->mEventsController->onNewEvent($event, function ($person, $roomId,$alert) {
-            $res = json_encode(["person" => $person, "room" => $roomId,"type"=>"position"]);
+
+       $this->mEventsController->onNewEvent($event, function ($person, $roomId,$alert , $position) {
+            $res = json_encode(["person" => $person,
+                                "room" => $roomId,
+                                "type"=>"position",
+                                "position" =>$position]);
             echo $res ;
             foreach ($this->clients as $client) {
                 $client->send($res);
                 if ($alert != null) {
-                    $client->send(json_encode(["person" => $person, "room" => $roomId,"type"=>"alert"]));
+                    $client->send(
+                        json_encode(
+                            ["person" => $person,
+                                "room" => $roomId,
+                                "type"=>"alert"]));
                 }
             }
         });

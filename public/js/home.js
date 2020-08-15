@@ -286,7 +286,7 @@ function updateList() {
 }
 
 
-function addPersonMRoom(room, person) {
+function addPersonM(room, person,position) {
 
     console.log(room);
     // noinspection EqualityComparisonWithCoercionJS
@@ -301,7 +301,13 @@ function addPersonMRoom(room, person) {
             polygonPoints[i] = [room.corners[i].x, room.corners[i].y]
         }
         var poly = L.polygon(polygonPoints);
-        var m = randomPointInPoly(poly);
+
+
+        if(position != "null"){
+            var m = position;
+        }else{
+            m = randomPointInPoly(poly);
+        }
         var icon, color_class;
         switch (person.type) {
             case "PENSIONNAIRE":
@@ -383,6 +389,8 @@ function addPerson(room, person) {
     }
     addPersonMRoom(chambres_list[room-1],person)
 }
+
+
 function roomHasPerson(roomPerson, person) {
     for (let i = 0; i < roomPerson.length; i++){
 
@@ -468,7 +476,10 @@ if ("WebSocket" in window) {
         received_msg = JSON.parse(received_msg);
         // noinspection EqualityComparisonWithCoercionJS
         if (received_msg.type == "position") {
-            addPerson(received_msg.room, received_msg.person);
+           // addPerson(received_msg.room, received_msg.person);
+
+            addPersonM(received_msg.room,received_msg.person,received_msg.mposition);
+            addPerson(received_msg.room,received_msg.person);
             console.log(received_msg.person)
         } else
         // noinspection EqualityComparisonWithCoercionJS
@@ -479,6 +490,67 @@ if ("WebSocket" in window) {
            addPolygoneToMap(latlngs);
         }
     };
+
+    function addPersonMRoom(room, person) {
+
+        console.log(room);
+        // noinspection EqualityComparisonWithCoercionJS
+        if (personsRooms[person.id] != room) {
+            if (typeof markers[person.id] !== 'undefined') {
+                map.removeLayer(markers[person.id])
+            }
+
+            var fullname = person.firstname + " " + person.lastname;
+            var polygonPoints = [];
+            for (let i = 0; i < room.corners.length; i++) {
+                polygonPoints[i] = [room.corners[i].x, room.corners[i].y]
+            }
+            var poly = L.polygon(polygonPoints);
+            var m = randomPointInPoly(poly);
+            var icon, color_class;
+            switch (person.type) {
+                case "PENSIONNAIRE":
+                    icon = "blind";
+                    color_class = "  t_" + person.type;
+                    // noinspection EqualityComparisonWithCoercionJS
+                    if (room.isInterdite == 1) {
+                        icon = "exclamation-triangle iconA fa-beat";
+                        color_class = "alert_a ";
+                    }
+                    break;
+                case "RESIDENT":
+                    icon = "user-md";
+                    color_class = "  t_" + person.type;
+                    break;
+                case "EMPLOYEE" :
+                    icon = "male";
+                    color_class = "  t_" + person.type;
+                    break
+            }
+
+            var customPin = L.divIcon({
+                className: 'location-pin',
+                html: "<div style='text-align: center' style='width: auto'> "   +  "<i class=\"fas fa-user\"></i>" + " </div>"
+                , iconSize: [100, 50],
+                iconAnchor: [20, 20],
+                popupAnchor: [27, -21],
+            });
+            var marker = L.marker(m.geometry.coordinates, {
+                icon: customPin
+            }).addTo(map);
+            var mPopup = "<h6>" + fullname + "</h6>" +
+                "<span><b>chambre : </b>" + room.nom + "</span>";
+            marker.bindPopup(mPopup);
+
+
+            marker.on('mouseover', function (ev) {
+                ev.target.openPopup();
+            });
+
+            markers[person.id] = marker;
+            personsRooms[person.id] = room;
+        }
+    }
 
     ws.onclose = function () {
         // websocket is closed.
@@ -496,13 +568,10 @@ if ("WebSocket" in window) {
 
 for (var i=0 ;i<100 ; i++) {
 
-    addPerson(7, {id: 5, name: "ouala eddine2"});
-    addPerson(7, {id: 5, name: "ouala eddine2"});
-    addPerson(7, {id: 5, name: "ouala eddine2"});
-    addPerson(7, {id: 5, name: "ouala eddine2"});
-    addPerson(7, {id: 5, name: "ouala eddine2"});
-    addPerson(7, {id: 5, name: "ouala eddine2"});
-    addPerson(7, {id: 3, name: "ouala"});
-    addPerson(7, {id: 4, name: "trgtgre rthrteht"});
-    addPerson(7, {id: 6, name: "oooooo rthrteht"});
+
+    addPerson(2, {id: 5, name: "ouala eddine2"});
+    addPerson(2, {id: 5, name: "ouala eddine2"});
+    addPerson(2, {id: 3, name: "ouala"});
+    addPerson(2, {id: 4, name: "trgtgre rthrteht"});
+    addPerson(2, {id: 6, name: "oooooo rthrteht"});
     }

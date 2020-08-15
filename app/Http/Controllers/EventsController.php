@@ -18,6 +18,7 @@ class EventsController extends Controller
 
     private $allRooms;
 
+
     /**
      * EventsController constructor.
      */
@@ -46,10 +47,11 @@ class EventsController extends Controller
     }
 
     private static $personsOldPosition = [];
+    private static $position = [];
 
     public function onNewEvent($event, $callback)
     {
-       
+
         if ($event->idRelai != null && $event->data != null) {
             $event->date = \Carbon\Carbon::now();
             $chambreId = $event->idRelai;
@@ -72,19 +74,48 @@ class EventsController extends Controller
                 } else {
                     $lastEvents = $this->sortEventsByDistance($lastEvents);
                     $last2Events = $this->pick2nearestRelays($lastEvents);
-                    $nearestRoom = $this->identifyRoomByTrilateration($last2Events, $event);
+                    $position = $this->getPositionByTrilateration($last2Events, $event);
+                    $nearestRoom=$this->getRoomByPoint($position[0],$position[1]);
                 }
             }
-            $callback($person, $nearestRoom, null);
+            $callback($person, $nearestRoom, null , $position);
             $this->isDanger($callback,$nearestRoom);
             $this->saveEvent($event, $nearestRoom);
             EventsController::$personsOldPosition[$person->id] = $nearestRoom;
         }
     }
 
+
+    public function getPositionByTrilateration($last2Events , $event){
+
+        $room1 = $this->allRooms[$last2Events[0]->idRelai - 1];
+        $room2 = $this->allRooms[$last2Events[1]->idRelai - 1];
+
+        $room3 = $this->allRooms[$event->idRelai - 1];
+
+        $x1 = json_decode($room1->data)->x;
+        $x2 = json_decode($room2->data)->x;
+        $x3 = json_decode($room3->data)->x;
+
+        $y1 = json_decode($room1->data)->y;
+        $y2 = json_decode($room2->data)->y;
+        $y3 = json_decode($room3->data)->y;
+
+        $p1 = new Point($x1, $y1, $this->calculateDistance($last2Events[0]));
+        $p2 = new Point($x2, $y2, $this->calculateDistance($last2Events[1]));
+        $p3 = new Point($x3, $y3, $this->calculateDistance($event));
+
+        $b = $this->computeTrilateration($p1, $p2, $p3);
+
+        $x = $b[0];
+        $y = $b[1];
+
+        return[$x , $y];
+
+    }
     public function isDanger($callback,$nearestRoom){
 
-        
+
 
     }
 
@@ -192,7 +223,7 @@ class EventsController extends Controller
         return $result;
     }
 
-    private function identifyRoomByTrilateration($last2Events, $event)
+    /* private function identifyRoomByTrilateration($last2Events, $event)
     {
         $room1 = $this->allRooms[$last2Events[0]->idRelai - 1];
         $room2 = $this->allRooms[$last2Events[1]->idRelai - 1];
@@ -219,7 +250,7 @@ class EventsController extends Controller
         $roomId = $this->getRoomByPoint($x, $y);
 
         return $roomId;
-    }
+    } */
 
     function computeTrilateration(Point $p1, Point $p2, Point $p3)
     {
@@ -250,7 +281,7 @@ class EventsController extends Controller
         return [$x, $y];
     }
 
-  
+
     private function getRoomByPoint($x, $y)
     {
         $rooms = Piece::all();
@@ -302,7 +333,7 @@ class EventsController extends Controller
         return $oddNodes;
     }
 
- 
+
 
     private function resultContains(array $result, $event)
     {
@@ -314,7 +345,7 @@ class EventsController extends Controller
 
     private $seances = [];
 
-   
+
     private function getResidentInRoom($id)
     {
         foreach (EventsController::$last_events as $person) {
@@ -333,6 +364,6 @@ class EventsController extends Controller
         return 0;
     }
 
-  
+
 
 }
