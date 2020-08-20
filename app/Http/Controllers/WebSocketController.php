@@ -62,8 +62,8 @@ class WebSocketController extends Controller implements MessageComponentInterfac
 
         $event = json_decode($msg);
 
-       $this->mEventsController->onNewEvent($event, function ($person, $roomId,$alert , $position) {
-            $res = json_encode(["person" => $person,
+       $this->mEventsController->onNewEvent($event, function ($user, $roomId,$alert , $position) {
+            $res = json_encode(["user" => $user,
                                 "room" => $roomId,
                                 "type"=>"position",
                                 "position" =>$position]);
@@ -73,7 +73,7 @@ class WebSocketController extends Controller implements MessageComponentInterfac
                 if ($alert != null) {
                     $client->send(
                         json_encode(
-                            ["person" => $person,
+                            ["user" => $user,
                                 "room" => $roomId,
                                 "type"=>"alert"]));
                 }

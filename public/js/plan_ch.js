@@ -32,14 +32,14 @@ function resetStyle() {
 
 function chClicked(id) {
     resetStyle();
-
+    clickedRoom = id;
     let ch = rooms[id - 1];
     ch = $("#" + ch.plan_rect);
     ch.removeClass("chambre");
     ch.addClass("chambre_selected");
 
     let room = rooms[id - 1];
-    $("#"+room.list_row).addClass("tr_selected");
+    $("#" + room.list_row).addClass("tr_selected");
     console.log(event.target)
 }
 

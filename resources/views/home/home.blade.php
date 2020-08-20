@@ -17,7 +17,7 @@
                 <div class="card-body">
                     <div id="mapid"></div>
 
-                    <span class="text-warning"><small><strong>NB: la position affichée sur le plan n'indique pas la position exacte de la personne, elle indique la présence d'une personne dans une chambre.</strong></small></span>
+                    <span class="text-warning"><small><strong>NB: Les emplacements qui risquent un danger sont encadrés en rouge</strong></small></span>
                   {{--  <button onclick="ajouterPersonne(0,0)"> Ajouter pensionaire salle 115</button>
                     <button onclick="ajouterPersonne(1,0)">Ajouter resident salle 115</button>
                     <button onclick="ajouterPersonne(2,0)">Ajouter employé salle 115</button>--}}{{--
@@ -77,7 +77,7 @@
              id="path46"
              style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:6.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
              d="m 4685,929 h -138 l 138,-138 z m -138,0 138,-138 h -138 z" /></g>
-            
+
             <rect xmlns="http://www.w3.org/2000/svg" id="ch_5" x="485" y="1800" class="chambre" fill="none" width="1290" height="2100"/>
           <rect xmlns="http://www.w3.org/2000/svg" id="ch_4" x="485" y="3930" class="chambre" fill="none" width="1290" height="1250"/>
 <rect xmlns="http://www.w3.org/2000/svg" id="ch_3" x="1820" y="4300" class="chambre" fill="none" width="1335" height="880"/>
@@ -710,6 +710,10 @@
             </div>
         </div>
 
+
+
+    </div>
+            </div></div>
         <div class="col-lg-3 col-md-3 col-3 col-sm-3">
             <div class="card">
 
@@ -743,7 +747,6 @@
             </div>
         </div>
 
-    </div>
     <audio id="soundHandle" style="display: none;">
         <source src="/buzzer.mp3" type="audio/mpeg">
     </audio>
@@ -802,15 +805,15 @@
                 peoples: [],
                 corners: [
                     <?php
-                    
+
                     $co=json_decode($r->data);
                     if(isset($co)){
                     $co = $co->corners;
-                    
+
                     foreach ($co as $item) {
                         echo "{x:" . $item->x . ",y:" . $item->y . "},";
                     }}
-                    
+
                     ?>
                 ]
             },

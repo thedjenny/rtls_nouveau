@@ -32,7 +32,7 @@ class RoomsController extends Controller
 //        dd($request->all());
         $requestData = $request->only(['name', 'data']);
 
-        if ($request->has('is_soins')) {
+    /*   if ($request->has('is_soins')) {
             $requestData = array_merge($requestData, ['type' => PieceTypes::SOINS]);
         } else {
             if ($request->has('is_interdite')) {
@@ -40,7 +40,7 @@ class RoomsController extends Controller
             } else {
                 $requestData = array_merge($requestData, ['type' => PieceTypes::NORMAL]);
             }
-        }
+        }*/
 
         $requestData = array_merge($requestData, ['isInterdite' => $request->has('is_interdite')]);
 

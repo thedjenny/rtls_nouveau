@@ -575,9 +575,9 @@ if ("WebSocket" in window) {
 for (var i=0 ;i<10 ; i++) {
 
 
-    addPerson(3, {id: 5, name: "ouala eddine2"});
+    addPerson(8, {id: 5, name: "ouala eddine2"});
 
-    addPerson(3, {id: 3, name: "ouala"});
-    addPerson(3, {id: 4, name: "trgtgre rthrteht"});
-    addPerson(3, {id: 6, name: "oooooo rthrteht"});
+    addPerson(8, {id: 3, name: "ouala"});
+    addPerson(8, {id: 4, name: "trgtgre rthrteht"});
+    addPerson(8, {id: 6, name: "oooooo rthrteht"});
     }

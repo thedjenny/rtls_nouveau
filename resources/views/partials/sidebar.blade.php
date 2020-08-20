@@ -2,7 +2,7 @@
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
             <a class="nav-link" href="{{route('home')}}">
-                RTLS</a>
+                Real-Time Location System</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a class="nav-link" href="{{route('home')}}">
@@ -17,18 +17,12 @@
                 </a>
             </li>
 
-            <li class="menu-header">PERSONNES</li>
-            <li>
-                <a class="nav-link" href="{{route('pensioners')}}">
-                    <i class="fas fa-blind"></i>
-                    <span> Pensionnaires</span>
-                </a>
-            </li>
+
 
             <li>
                 <a class="nav-link" href="{{route('employees')}}">
                     <i class="fas fa-user-tie"></i>
-                    <span> Gestion des employés</span>
+                    <span> Gestion des utilisateurs</span>
                 </a>
             </li>
 
@@ -45,12 +39,7 @@
                     <span>Séances</span>
                 </a>
             </li>--}}
-            <li>
-                <a class="nav-link text-info" href="{{route('events.seances')}}">
-                    <i class="fas fa-stethoscope"></i>
-                    <span>Séances de soins</span>
-                </a>
-            </li>
+
 
             <li class="menu-header">ADMINSTRATION</li>
             <li>
