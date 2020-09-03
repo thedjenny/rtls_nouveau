@@ -55,11 +55,14 @@ Route::get('config', 'ConfigController@index')->name('config');
 Route::post('config', 'ConfigController@update')->name('config.update');
 
 //Map
-Route::get('/users/map','UsersController@index');
+Route::get('/users/map','UsersController@map');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/test', 'HomeController@test');
 
-Route::get('/map','HomeController@map'); //map for the users (need to filter)
+Route::get('/map','HomeController@map')->name('map');//map for the users (need to filter)
+
+Route::get('notify','NotificationController@notify');

@@ -10,8 +10,9 @@ use App\Models\Person;
 use App\Models\Piece;
 use App\Models\Point;
 use App\Models\Seance;
-use App\User;
+
 use DateTime;
+use Illuminate\Http\Request;
 
 
 class EventsController extends Controller
@@ -19,6 +20,8 @@ class EventsController extends Controller
 
     private $allRooms;
 
+    private static $last_events = [];
+    private static $person_last_index = [];
 
     /**
      * EventsController constructor.
@@ -47,21 +50,72 @@ class EventsController extends Controller
         return view('events.special_events.special_events');
     }
 
-    private static $usersOldPosition = [];
+    private static $personsOldPosition = [];
     private static $position = [];
 
+    function getReversedUUID(String $uuid){
+
+        $espUUID = explode("-",$uuid);
+        $strFinal = "";
+        foreach($espUUID as $uuid){
+
+            if(strlen($uuid)==12){
+                $strDouze= str_split ($uuid,  4);
+                $str1 = $strDouze[0];
+                $str2=$strDouze[1].$strDouze[2];
+
+                $str="" ;
+                for($i=0;$i<strlen($str1)-1;$i = $i+2){
+                    $str = $str1[$i].$str1[$i+1].$str;
+                }
+                $strFinal= $str ."-". $strFinal;
+
+                $str="" ;
+                for($i=0;$i<strlen($str2)-1;$i = $i+2){
+                    $str = $str2[$i].$str2[$i+1].$str;
+                }
+                $strFinal= $str ."-". $strFinal;
+
+            }
+            else{
+                $str="" ;
+                for($i=0;$i<strlen($uuid)-1;$i = $i+2){
+                    $str = $uuid[$i].$uuid[$i+1].$str;
+                }
+                if(strlen($strFinal)){
+                    if(strlen($strFinal)==9){
+                        $strFinal= $str .$strFinal;
+                    }else{
+                        $strFinal= $str ."-".$strFinal;
+                    }
+
+                }else{
+                    $strFinal= "-".$str;
+                }
+            }
+        }
+
+        return $strFinal;
+
+    }
     public function onNewEvent($event, $callback)
     {
 
+
         if ($event->idRelai != null && $event->data != null) {
             $event->date = \Carbon\Carbon::now();
+            $position = [];
             $chambreId = $event->idRelai;
-            $userUUID = $event->data->iBeacon->uuid;
-            $user = User::where("uid_phone", "=", $userUUID)->get();
-            $person = $user[0];
+            $personUUID = $event->data->iBeacon->uuid;
+            $personUUID2 = $this->getReversedUUID($personUUID);
+            echo"\n \n my new uuid ".$personUUID2;
+
+            $person = Person::where("uid_phone", "=", $personUUID)->get();
+            $person = $person[0];
             $lastEvents = [];
-            if (array_key_exists($userUUID, EventsController::$last_events))
+            if (array_key_exists($personUUID, EventsController::$last_events))
                 $lastEvents = $this->getLastEvents($event);
+            // if li tahti count($lastEvents) == 0 || count($lastEvents) == 0)
             if (count($lastEvents) == 0 || count($lastEvents) == 0) {
                 $nearestRoom = $chambreId;
             } else {
@@ -79,10 +133,10 @@ class EventsController extends Controller
                     $nearestRoom=$this->getRoomByPoint($position[0],$position[1]);
                 }
             }
-            $callback($user, $nearestRoom, null , $position);
+            $callback($person, $nearestRoom, null , $position);
             $this->isDanger($callback,$nearestRoom);
             $this->saveEvent($event, $nearestRoom);
-            EventsController::$userOldPosition[$user->id] = $nearestRoom;
+           // EventsController::$personOldPosition[$person->id] = $nearestRoom;
         }
     }
 
@@ -114,19 +168,18 @@ class EventsController extends Controller
         return[$x , $y];
 
     }
+
     public function isDanger($callback,$nearestRoom){
 
 
 
     }
 
-    private static $last_events = [];
-    private static $user_last_index = [];
 
     private function getLastEvents($event)
     {
-        $userUUID = $event->data->iBeacon->uuid;
-        $result_events = $this->getLast5secondsEvents(EventsController::$last_events[$userUUID], $event);
+        $personUUID = $event->data->iBeacon->uuid;
+        $result_events = $this->getLast5secondsEvents(EventsController::$last_events[$personUUID], $event);
         $mEvents = [];
         for ($i = 0; $i < count($result_events); $i++) {
             if ($result_events[$i]->idRelai != $event->idRelai) {
@@ -162,20 +215,20 @@ class EventsController extends Controller
     private function saveEvent($event, $nearestRoom)
     {
 
-        $userUUID = $event->data->iBeacon->uuid;
+        $personUUID = $event->data->iBeacon->uuid;
 
-        if (!array_key_exists($userUUID, EventsController::$user_last_index)) {
-            EventsController::$user_last_index[$userUUID] = 0;
+        if (!array_key_exists($personUUID, EventsController::$person_last_index)) {
+            EventsController::$person_last_index[$personUUID] = 0;
         }
 
-        $last_index = EventsController::$person_last_index[$userUUID];
+        $last_index = EventsController::$person_last_index[$personUUID];
 
         if ($last_index + 1 > 10)
             $last_index = -1;
-        EventsController::$user_last_index[$userUUID] = $last_index + 1;
+        EventsController::$person_last_index[$personUUID] = $last_index + 1;
 
         $event->actualRoom = $nearestRoom;
-        EventsController::$last_events[$userUUID][$last_index] = $event;
+        EventsController::$last_events[$personUUID][$last_index] = $event;
     }
 
     private function calculateDistance($event)
@@ -189,7 +242,7 @@ class EventsController extends Controller
 
         $xtr = ($c / (10 * $N));
 
-        return pow(10, $xtr);
+        return pow(10, $xtr)/100;
     }
 
     private function sortEventsByDistance($lastEvents)
@@ -347,23 +400,7 @@ class EventsController extends Controller
     private $seances = [];
 
 
-    private function getResidentInRoom($id)
-    {
-        foreach (EventsController::$last_events as $user) {
-            $key = array_search($user, EventsController::$last_events);
-            $last_index = EventsController::$user_last_index[$key];
-            $mTime = new DateTime(EventsController::$last_events[$last_index]->date);
-            $mt = $mTime->getTimestamp() - 500;
-            $mTime = $mTime->getTimestamp();
-            if ($mt < $mTime)
-                if ($id == EventsController::$last_events[$last_index]->actualRoom) {
-                    $user = User::where("uid_phone", "=", $key)->get();
 
-                        return $user->id;
-                }
-        }
-        return 0;
-    }
 
 
 

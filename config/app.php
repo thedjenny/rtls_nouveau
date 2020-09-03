@@ -161,13 +161,13 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
+        LaravelFCM\FCMServiceProvider::class,
         /*
          * Package Service Providers...
          */
-            
+
        // Laravel\Passport\PassportServiceProvider::class,
-        
+
         /*
          * Application Service Providers...
          */
@@ -191,7 +191,7 @@ return [
     */
 
     'aliases' => [
-
+        'FCM' => LaravelFCM\Facades\FCM::class,
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,

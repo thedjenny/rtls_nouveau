@@ -15,7 +15,7 @@ class WebSocketServer extends Command
      *
      * @var string
      */
-    protected $signature = 'websocket:init';
+    protected $signature = 'w';
 
     /**
      * The console command description.

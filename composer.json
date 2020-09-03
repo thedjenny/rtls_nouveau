@@ -8,6 +8,7 @@
     ],
     "license": "MIT",
     "require": {
+        "brozot/laravel-fcm": "1.3.*",
         "php": "^7.1.3",
         "bensampo/laravel-enum": "^1.17",
         "cboden/ratchet": "^0.4.1",

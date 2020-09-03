@@ -35,4 +35,8 @@ class HomeController extends Controller
 
         return view('users.map')->with('rooms', $rooms);
     }
+
+    public function test(){
+
+    }
 }

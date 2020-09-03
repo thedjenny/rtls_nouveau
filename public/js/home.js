@@ -75,7 +75,7 @@ function infoCh(id) {
 let roomsPersons = [];
 
 function initRooms() {
-    for (let i = 0; i < 33; i++) {
+    for (let i = 0; i < 9; i++) {
         roomsPersons[i] = []
     }
 }
@@ -92,44 +92,42 @@ let roomLabels = [
     {lat: -150, lng: 236.5},
     {lat: -86, lng: 332},
 
-   /*
-    {lat: -102.5, lng: 306},
+    /*
+     {lat: -102.5, lng: 306},
 
-    {lat: -136.5, lng: 454.5},//10
-    {lat: -155, lng: 413},
-    {lat: -160.5, lng: 380.5},
-    {lat: -164, lng: 338},
-    {lat: -63, lng: 428},
+     {lat: -136.5, lng: 454.5},//10
+     {lat: -155, lng: 413},
+     {lat: -160.5, lng: 380.5},
+     {lat: -164, lng: 338},
+     {lat: -63, lng: 428},
 
-    {lat: -170.5, lng: 235},//15
-    {lat: -259, lng: 25.5},
-    {lat: -248, lng: 70},
-    {lat: -248.5, lng: 108},
-    {lat: -262.5, lng: 182.5},
+     {lat: -170.5, lng: 235},//15
+     {lat: -259, lng: 25.5},
+     {lat: -248, lng: 70},
+     {lat: -248.5, lng: 108},
+     {lat: -262.5, lng: 182.5},
 
-    {lat: -247, lng: 221.5},//20
-    {lat: -248, lng: 261},
-    {lat: -253.5, lng: 297.5},
-    {lat: -248, lng: 376},
-    {lat: -249.5, lng: 407},
+     {lat: -247, lng: 221.5},//20
+     {lat: -248, lng: 261},
+     {lat: -253.5, lng: 297.5},
+     {lat: -248, lng: 376},
+     {lat: -249.5, lng: 407},
 
-    {lat: -256, lng: 454.5},//25
-    {lat: -280.5, lng: 102},
-    {lat: -283, lng: 350.5},
-    {lat: -250.5, lng: 146.5},
-    {lat: -251.5, lng: 343.5},
+     {lat: -256, lng: 454.5},//25
+     {lat: -280.5, lng: 102},
+     {lat: -283, lng: 350.5},
+     {lat: -250.5, lng: 146.5},
+     {lat: -251.5, lng: 343.5},
 
-    {lat: -204, lng: 356},//30
-    {lat: -159.5, lng: 193.5},
-    {lat: -161, lng: 303.5},*/
+     {lat: -204, lng: 356},//30
+     {lat: -159.5, lng: 193.5},
+     {lat: -161, lng: 303.5},*/
 ];
 
 initMap();
 
 
-
 function initMap() {
-
 
 
     map = L.map('mapid', {
@@ -140,7 +138,6 @@ function initMap() {
         crs: L.CRS.Simple,
         attributionControl: false
     });
-
 
 
     var w = 1280 * 3,
@@ -168,8 +165,7 @@ function initMap() {
     map.on('click', clicked);
 
 
-
-    //initLabelsWithPopups();
+    //todo initLabelsWithPopups();
 }
 
 function initLabelsWithPopups() {
@@ -198,7 +194,7 @@ function initLabelsWithPopups() {
             '</div>';
 
 
-        //  marker.bindPopup(mPopup);
+        marker.bindPopup(mPopup);
 
 
         marker.on('click', function (ev) {
@@ -209,7 +205,6 @@ function initLabelsWithPopups() {
         });
     }
 }
-
 
 
 function showModal(number) {
@@ -258,28 +253,27 @@ function updateList() {
     if (selectedRoom != null) {
         for (let i = 0; i < roomsPersons[selectedRoom - 1].length; i++) {
             let person = roomsPersons[selectedRoom - 1][i];
-            let mclass= "";
-            if (person.type=="EMPLOYEE") mclass = "t_EMPLOYEE";
-            if (person.type=="PENSIONNAIRE ") mclass = "t_PENSIONNAIRE";
-            if (person.type=="RESIDENT") mclass = "t_RESIDENT";
+            let mclass = "";
+            if (person.type == "EMPLOYEE") mclass = "t_EMPLOYEE";
+            if (person.type == "PENSIONNAIRE ") mclass = "t_PENSIONNAIRE";
+            if (person.type == "USER") mclass = "t_RESIDENT";
             pp = pp +
-                "<tr id='tr_" + person.id + "' class='"+mclass+"'   onmouseover='showSelectedRoom(" + (selectedRoom) + ")'>" +
-                "      <td>" + person.lastname +" "+person.firstname + "</td>" +
+                "<tr id='tr_" + person.id + "' class='" + mclass + "'   onmouseover='showSelectedRoom(" + (selectedRoom) + ")'>" +
+                "      <td>" + person.lastname + " " + person.firstname + "</td>" +
                 "      <td>" + chambres_list[selectedRoom - 1].nom + "</td>" +
                 "</tr>"
         }
-    }
-    else {
+    } else {
         for (let j = 0; j < roomsPersons.length; j++) {
             for (let i = 0; i < roomsPersons[j].length; i++) {
                 let person = roomsPersons[j][i];
-                let mclass= "";
-                if (person.type=="EMPLOYEE") mclass = "t_EMPLOYEE";
-                if (person.type=="PENSIONNAIRE ") mclass = "t_PENSIONNAIRE";
-                if (person.type=="RESIDENT") mclass = "t_RESIDENT";
+                let mclass = "";
+                if (person.type == "EMPLOYEE") mclass = "t_EMPLOYEE";
+                if (person.type == "PENSIONNAIRE ") mclass = "t_PENSIONNAIRE";
+                if (person.type == "USER") mclass = "t_RESIDENT";
                 pp = pp +
-                    "<tr id='tr_" + person.id + "' class='"+mclass+"'  onmouseover='showSelectedRoom(" + (j + 1) + ")'>" +
-                    "      <td>" + person.lastname +" "+person.firstname + "</td>" +
+                    "<tr id='tr_" + person.id + "' class='" + mclass + "'  onmouseover='showSelectedRoom(" + (j + 1) + ")'>" +
+                    "      <td>" + person.lastname + " " + person.firstname + "</td>" +
                     "      <td>" + chambres_list[j].nom + "</td>\n" +
                     "</tr>"
             }
@@ -289,71 +283,67 @@ function updateList() {
 }
 
 
-function addPersonM(room, person,position) {
+function addPersonM(room, person, position) {
 
     console.log(room);
+    if (typeof room == "number")
+        room = chambres_list[room - 1];
+    else
+        room = chambres_list[room.id - 1];
     // noinspection EqualityComparisonWithCoercionJS
-    if (personsRooms[person.id] != room) {
-        if (typeof markers[person.id] !== 'undefined') {
-            map.removeLayer(markers[person.id])
-        }
+    // if (personsRooms[person.id] != room) {
+    console.log("hani dkholt nzid 3abd")
+    if (typeof markers[person.id] !== 'undefined') {
+        map.removeLayer(markers[person.id])
+    }
 
-        var fullname = person.firstname + " " + person.lastname;
-        var polygonPoints = [];
-        for (let i = 0; i < room.corners.length; i++) {
-            polygonPoints[i] = [room.corners[i].x, room.corners[i].y]
-        }
-        var poly = L.polygon(polygonPoints);
+    var fullname = person.name;
+    var polygonPoints = [];
+    for (let i = 0; i < room.corners.length; i++) {
+        polygonPoints[i] = [room.corners[i].x, room.corners[i].y]
+    }
+    var poly = L.polygon(polygonPoints);
+    console.log(position)
 
 
-        if(position != "null"){
-            var m = position;
-        }else{
-            m = randomPointInPoly(poly);
-        }
-        var icon, color_class;
-        switch (person.type) {
-            case "PENSIONNAIRE":
-                icon = "blind";
-                color_class = "  t_" + person.type;
-                // noinspection EqualityComparisonWithCoercionJS
-                if (room.isInterdite == 1) {
-                    icon = "exclamation-triangle iconA fa-beat";
-                    color_class = "alert_a ";
-                }
-                break;
-            case "RESIDENT":
-                icon = "user-md";
-                color_class = "  t_" + person.type;
-                break;
-            case "EMPLOYEE" :
-                icon = "male";
-                color_class = "  t_" + person.type;
-                break
-        }
+    if (position.length > 1) {
+        var m = {geometry: {coordinates: [position[0], position[1]]}}
+    } else {
+        m = randomPointInPoly(poly);
+    }
+    //m = randomPointInPoly(poly);
+    console.log("hani rayh nhat l pin")
+    var customPin = L.divIcon({
+        className: 'location-pin',
+        //remplacer les icones par des images
+        html: "<div style='text-align: center' style='width: auto'> " + "<i class=\"fas fa-user\"></i>" + " </div>"
+        , iconSize: [100, 50],
+        iconAnchor: [20, 20],
+        popupAnchor: [27, -21],
+    });
 
-        var customPin = L.divIcon({
-            className: 'location-pin',
-            html: "<div style='text-align: center' style='width: auto'> "   +  "<i class=\"fas fa-user\"></i>" + " </div>"
-            , iconSize: [100, 50],
-            iconAnchor: [20, 20],
-            popupAnchor: [27, -21],
-        });
-        var marker = L.marker(m.geometry.coordinates, {
+    console.log("hani rayh nhat l pin")
+
+    var marker = L.marker(m.geometry.coordinates,
+        {
             icon: customPin
         }).addTo(map);
-        var mPopup = "<h6>" + fullname + "</h6>" +
-            "<span><b>chambre : </b>" + room.nom + "</span>";
-        marker.bindPopup(mPopup);
+    console.log("hani hatit lpin hna : " + m.geometry.coordinates)
 
 
-        marker.on('mouseover', function (ev) {
-            ev.target.openPopup();
-        });
+    //haw popup
+    var mPopup = "<h6>" + fullname + "</h6>" +
+        "<span><b>chambre : </b>" + room.nom + "</span>";
+    marker.bindPopup(mPopup);
 
-        markers[person.id] = marker;
-        personsRooms[person.id] = room;
-    }
+
+    marker.on('mouseover', function (ev) {
+        ev.target.openPopup();
+    });
+
+    markers[person.id] = marker;
+    personsRooms[person.id] = room;
+    // }
 }
 
 
@@ -390,12 +380,12 @@ function addPerson(room, person) {
     } else {
         addPersonToRoom(person, room);
     }
-    addPersonMRoom(chambres_list[room-1],person)
+    //   addPersonMRoom(chambres_list[room-1],person)
 }
 
 
 function roomHasPerson(roomPerson, person) {
-    for (let i = 0; i < roomPerson.length; i++){
+    for (let i = 0; i < roomPerson.length; i++) {
 
         // noinspection EqualityComparisonWithCoercionJS
         if (roomPerson[i].id == person.id)
@@ -404,6 +394,8 @@ function roomHasPerson(roomPerson, person) {
 
     return false;
 }
+
+
 function personExistsInRooms(person) {
     for (let i = 0; i < roomsPersons.length; i++) {
         if (roomHasPerson(roomsPersons[i], person))
@@ -411,6 +403,7 @@ function personExistsInRooms(person) {
     }
     return false;
 }
+
 function deleteFromRoomIfExists(person, room) {
     if (roomsPersons[room] > -1) {
         var index = roomsPersons[room].indexOf(person);
@@ -421,6 +414,7 @@ function deleteFromRoomIfExists(person, room) {
     }
 
 }
+
 function deleteFromAllRoomsExceptTheOne(person, room) {
     for (let i = 0; i < roomsPersons.length; i++) {
         //     console.log("i : " + i + " room : " + (room - 1))
@@ -436,23 +430,76 @@ function addPolygonToRoom(room) {
     console.log(chambres_list[room]);
 
     var latlngs = [
-    [t_corners[0].x, t_corners[0].y],
-    [t_corners[1].x, t_corners[1].y],
-    [t_corners[2].x, t_corners[2].y],
-    [t_corners[3].x, t_corners[3].y]
+        [t_corners[0].x, t_corners[0].y],
+        [t_corners[1].x, t_corners[1].y],
+        [t_corners[2].x, t_corners[2].y],
+        [t_corners[3].x, t_corners[3].y]
     ];
     addPolygoneToMap(latlngs)
-    }
+}
 
-    function alertIfMoreThanThreeInRoom(roomsPerson, room) {
-    if (roomsPerson.length >= 3)
-    addPolygonToRoom(room)
+function alertIfMoreThanThreeInRoom(roomsPerson, room) {
+    if (roomsPerson.length >= 3) {
+        addPolygonToRoom(room);
+        var personsID = []
+        for (let i = 0; i < roomsPerson; i++) {
+            console.log("check " + roomsPerson[i].name);
+        }
+        //notifyPersons(personsID);
+
+        /*  request = $.ajax({
+               url : './notify',
+               method:'GET',
+               dataType: 'json',
+               data: personsID,
+
+           }); */
+
+
     }
+    // for (let i = 0; i < roomsPersons[i].length; i++) {
+    /* $.ajax({
+         url : './notify',
+         method:'GET',
+         success:function (){
+             alert('ok');
+         },
+         fail:function (){
+             alert('no');
+         }
+     });*/
+
+    //}
+
+}
+
+function notifyPersons(personsID) {
+    personsID = [1, 5];
+    /* request = $.ajax({
+         url: "./notify",
+         method: "GET",
+         dataType: "json",
+         data: personsID,
+         success:function (){
+             alert('ok');
+         },
+         failure:function (){
+             alert('no');
+         }
+
+     });*/
+
+
+}
 
 function addPersonToRoom(person, room) {
     //ajouter la personne a la liste
+
     roomsPersons[room - 1].push(person);
+
     alertIfMoreThanThreeInRoom(roomsPersons[room - 1], room - 1);
+
+
     //afficher la personne dans le popup
     addPersonToPopupList(person, room);
 
@@ -461,8 +508,6 @@ function addPersonToRoom(person, room) {
 
     updateList();
 }
-
-
 
 
 if ("WebSocket" in window) {
@@ -481,83 +526,90 @@ if ("WebSocket" in window) {
 
         // noinspection EqualityComparisonWithCoercionJS
         if (received_msg.type == "position") {
-           // addPerson(received_msg.room, received_msg.person);
+            // addPerson(received_msg.room, received_msg.person);
 
-            addPersonM(received_msg.room,received_msg.person,received_msg.mposition);
-            addPerson(received_msg.room,received_msg.person);
+            addPersonM(received_msg.room, received_msg.person, received_msg.position);
+            //addPerson(received_msg.room, received_msg.person);
             console.log(received_msg.person)
         } else
-        // noinspection EqualityComparisonWithCoercionJS
+            // noinspection EqualityComparisonWithCoercionJS
         if (received_msg.type == "alert") {
-           // showAlertNotification(received_msg.person, chambres_list[received_msg.room - 1]);
-         var t_corners=  chambres_list[received_msg.room-1].corners;
+            // showAlertNotification(received_msg.person, chambres_list[received_msg.room - 1]);
+            var t_corners = chambres_list[received_msg.room - 1].corners;
 
             console.log(latlngs);
-           addPolygoneToMap(t_corners);
+            addPolygoneToMap(t_corners);
         }
     };
 
-    function addPersonMRoom(room, person) {
+    /*  function addPersonMRoom(room, person) {
 
-        console.log(room);
-        // noinspection EqualityComparisonWithCoercionJS
-        if (personsRooms[person.id] != room) {
-            if (typeof markers[person.id] !== 'undefined') {
-                map.removeLayer(markers[person.id])
-            }
+          console.log(room);
+          // noinspection EqualityComparisonWithCoercionJS
+          if (personsRooms[person.id] != room) {
+              if (typeof markers[person.id] !== 'undefined') {
+                  map.removeLayer(markers[person.id])
+              }
 
-            var fullname = person.firstname + " " + person.lastname;
-            var polygonPoints = [];
-            for (let i = 0; i < room.corners.length; i++) {
-                polygonPoints[i] = [room.corners[i].x, room.corners[i].y]
-            }
-            var poly = L.polygon(polygonPoints);
-            var m = randomPointInPoly(poly);
-            var icon, color_class;
-            switch (person.type) {
-                case "PENSIONNAIRE":
-                    icon = "blind";
-                    color_class = "  t_" + person.type;
-                    // noinspection EqualityComparisonWithCoercionJS
-                    if (room.isInterdite == 1) {
-                        icon = "exclamation-triangle iconA fa-beat";
-                        color_class = "alert_a ";
-                    }
-                    break;
-                case "RESIDENT":
-                    icon = "user-md";
-                    color_class = "  t_" + person.type;
-                    break;
-                case "EMPLOYEE" :
-                    icon = "male";
-                    color_class = "  t_" + person.type;
-                    break
-            }
+              var fullname = person.firstname + " " + person.lastname;
 
-            var customPin = L.divIcon({
-                className: 'location-pin',
-                html: "<div style='text-align: center' style='width: auto'> "   +  "<i class=\"fas fa-user\"></i>" + " </div>"
-                , iconSize: [100, 50],
-                iconAnchor: [20, 20],
-                popupAnchor: [27, -21],
-            });
-            var marker = L.marker(m.geometry.coordinates, {
-                icon: customPin
-            }).addTo(map);
-            var mPopup = "<h6>" + fullname + "</h6>" +
-                "<span><b>chambre : </b>" + room.nom + "</span>";
-            marker.bindPopup(mPopup);
+              var polygonPoints = [];
+              for (let i = 0; i < room.corners.length; i++) {
+                  polygonPoints[i] = [room.corners[i].x, room.corners[i].y]
+              }
+              var poly = L.polygon(polygonPoints);
 
 
-            marker.on('mouseover', function (ev) {
-                ev.target.openPopup();
-            });
 
-            markers[person.id] = marker;
-            personsRooms[person.id] = room;
-        }
-    }
+              var m = randomPointInPoly(poly);
 
+
+
+              var icon, color_class;
+              switch (person.type) {
+                  case "PENSIONNAIRE":
+                      icon = "blind";
+                      color_class = "  t_" + person.type;
+                      // noinspection EqualityComparisonWithCoercionJS
+                      if (room.isInterdite == 1) {
+                          icon = "exclamation-triangle iconA fa-beat";
+                          color_class = "alert_a ";
+                      }
+                      break;
+                  case "USER":
+                      icon = "user-md";
+                      color_class = "  t_" + person.type;
+                      break;
+                  case "EMPLOYEE" :
+                      icon = "male";
+                      color_class = "  t_" + person.type;
+                      break
+              }
+
+              var customPin = L.divIcon({
+                  className: 'location-pin',
+                  html: "<div style='text-align: center' style='width: auto'> "   +  "<i class=\"fas fa-user\"></i>" + " </div>"
+                  , iconSize: [100, 50],
+                  iconAnchor: [20, 20],
+                  popupAnchor: [27, -21],
+              });
+              var marker = L.marker(m.geometry.coordinates, {
+                  icon: customPin
+              }).addTo(map);
+              var mPopup = "<h6>" + fullname + "</h6>" +
+                  "<span><b>chambre : </b>" + room.nom + "</span>";
+              marker.bindPopup(mPopup);
+
+
+              marker.on('mouseover', function (ev) {
+                  ev.target.openPopup();
+              });
+
+              markers[person.id] = marker;
+              personsRooms[person.id] = room;
+          }
+      }
+  */
     ws.onclose = function () {
         // websocket is closed.
         console.error("Connection is closed...");
@@ -567,17 +619,10 @@ if ("WebSocket" in window) {
     alert("WebSocket NOT supported by your Browser!");
 }
 
+/*
+addPerson(3, {id: 1, name: "emulator"});
+addPerson(3, {id: 2, name: "hamza"});
+addPerson(3, {id: 3, name: "mohamed"});
+addPerson(3, {id: 5, name: "galaxy"});
 
-
-
-
-
-for (var i=0 ;i<10 ; i++) {
-
-
-    addPerson(8, {id: 5, name: "ouala eddine2"});
-
-    addPerson(8, {id: 3, name: "ouala"});
-    addPerson(8, {id: 4, name: "trgtgre rthrteht"});
-    addPerson(8, {id: 6, name: "oooooo rthrteht"});
-    }
+*/

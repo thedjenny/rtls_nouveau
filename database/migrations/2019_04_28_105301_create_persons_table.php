@@ -11,22 +11,26 @@ class CreatePersonsTable extends Migration
      *
      * @return void
      */
-    
+
     public function up()
     {
         Schema::create('persons', function (Blueprint $table) {
             $table->bigIncrements('id');
-            
-            $table->string('uid_phone')->unique()->nullable();
+
+
             $table->string('name');
             $table->string('email')->unique()->nullable();
             $table->string('password')->nullable();
-            $table->rememberToken();
+            $table->string('uid_phone')->unique()->nullable();
+
             $table->enum('type', [
                 \App\Enums\PersonTypes::USER,
                 \App\Enums\PersonTypes::EMPLOYEE,
                 \App\Enums\PersonTypes::ADMIN,
             ]);
+            $table->string('firebase_token')->nullable();
+            $table->string('profile_picture')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }
