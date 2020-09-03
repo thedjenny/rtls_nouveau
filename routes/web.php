@@ -55,7 +55,7 @@ Route::get('config', 'ConfigController@index')->name('config');
 Route::post('config', 'ConfigController@update')->name('config.update');
 
 //Map
-Route::get('/users/map','UsersController@map');
+Route::get('/map2/{id}','UsersController@map');
 
 Auth::routes();
 

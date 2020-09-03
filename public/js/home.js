@@ -17,7 +17,7 @@ function addPolygoneToMap(ar) {
 }
 
 
-xmlhttp.open("GET", "./rooms.json", true);
+xmlhttp.open("GET", "/rooms.json", true);
 xmlhttp.send();
 
 function resetStyle() {

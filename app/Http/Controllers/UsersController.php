@@ -8,6 +8,13 @@ use App\Models\Piece;
 class UsersController extends Controller
 {
 
+    /**
+     * UsersController constructor.
+     */
+    public function __construct()
+    {
+    }
+
     public function index(Request $request){
 
 
@@ -18,10 +25,13 @@ class UsersController extends Controller
 
 
 
-    public function map(){
+    public function map($id){
 
         $rooms = Piece::all();
 
-        return view('users.map')->with('rooms', $rooms);
+        return view('users.map')->with([
+            'rooms'=> $rooms,
+            'userid'=> $id,
+            ]);
     }
 }
