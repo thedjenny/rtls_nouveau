@@ -48,7 +48,7 @@ function chClicked(id) {
 
     let room = rooms[id - 1];
     $("#" + room.list_row).addClass("tr_selected");
-    console.log(event.target)
+    //console.log(event.target)
 }
 
 function resetmList() {
@@ -69,7 +69,7 @@ function chListHover(id) {
 function infoCh(id) {
     let room = rooms[id - 1];
     $("#room-edit").fireModal()
-    console.log(id)
+   // console.log(id)
 }
 
 let roomsPersons = [];
@@ -159,7 +159,7 @@ function initMap() {
     }).addAttribution('<a href="#">seghiri.takieddine@univ-constantine2.dz , benchetra.hamza@univ-constantine2.dz</a>').addTo(map);
 
     function clicked(e) {
-        console.log(e.latlng)
+       // console.log(e.latlng)
     }
 
     map.on('click', clicked);
@@ -285,14 +285,14 @@ function updateList() {
 
 function addPersonM(room, person, position) {
 
-    console.log(room);
+    //console.log(room);
     if (typeof room == "number")
         room = chambres_list[room - 1];
     else
         room = chambres_list[room.id - 1];
     // noinspection EqualityComparisonWithCoercionJS
     // if (personsRooms[person.id] != room) {
-    console.log("hani dkholt nzid 3abd")
+    console.log("hani dkholt nzid "+person.name+" fi " +room.nom)
     if (typeof markers[person.id] !== 'undefined') {
         map.removeLayer(markers[person.id])
     }
@@ -312,7 +312,7 @@ function addPersonM(room, person, position) {
         m = randomPointInPoly(poly);
     }
     //m = randomPointInPoly(poly);
-    console.log("hani rayh nhat l pin")
+   // console.log("hani rayh nhat l pin")
     var customPin = L.divIcon({
         className: 'location-pin',
         //remplacer les icones par des images
@@ -427,7 +427,7 @@ function deleteFromAllRoomsExceptTheOne(person, room) {
 
 function addPolygonToRoom(room) {
     var t_corners = chambres_list[room].corners;
-    console.log(chambres_list[room]);
+   // console.log(chambres_list[room]);
 
     var latlngs = [
         [t_corners[0].x, t_corners[0].y],
@@ -443,7 +443,7 @@ function alertIfMoreThanThreeInRoom(roomsPerson, room) {
         addPolygonToRoom(room);
         var personsID = []
         for (let i = 0; i < roomsPerson; i++) {
-            console.log("check " + roomsPerson[i].name);
+          //  console.log("check " + roomsPerson[i].name);
         }
         //notifyPersons(personsID);
 
@@ -530,7 +530,7 @@ if ("WebSocket" in window) {
             if (received_msg.person.id == userid) {
                 addPersonM(received_msg.room, received_msg.person, received_msg.position);
                 //addPerson(received_msg.room, received_msg.person);
-                console.log(received_msg.person)
+                console.log("recieved msg : "+received_msg.person)
             }
         } else
             // noinspection EqualityComparisonWithCoercionJS
@@ -538,7 +538,7 @@ if ("WebSocket" in window) {
             // showAlertNotification(received_msg.person, chambres_list[received_msg.room - 1]);
             var t_corners = chambres_list[received_msg.room - 1].corners;
 
-            console.log(latlngs);
+         //   console.log(latlngs);
             addPolygoneToMap(t_corners);
         }
     };

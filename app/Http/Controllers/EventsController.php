@@ -108,7 +108,7 @@ class EventsController extends Controller
             $chambreId = $event->idRelai;
             $personUUID = $event->data->iBeacon->uuid;
             $personUUID2 = $this->getReversedUUID($personUUID);
-            echo"\n \n my new uuid ".$personUUID2;
+           // echo"\n \n my new uuid ".$personUUID2;
 
             $person = Person::where("uid_phone", "=", $personUUID)->get();
             $person = $person[0];
@@ -242,7 +242,7 @@ class EventsController extends Controller
 
         $xtr = ($c / (10 * $N));
 
-        return pow(10, $xtr)/100;
+        return pow(10, $xtr);
     }
 
     private function sortEventsByDistance($lastEvents)

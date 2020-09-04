@@ -82,7 +82,7 @@
                 data:{
                     rssi:-60,
                     iBeacon:{
-                        uuid:"f3125a15-3f7e-4cea-9469-4966d42658ac",
+                        uuid:"1bedb40c-feb9-44c3-ab05-cd6f5a517b46",
                         txPower:-65
                     },
                 }
@@ -98,13 +98,14 @@
                 data:{
                     rssi:-43,
                     iBeacon:{
-                        uuid:"f3125a15-3f7e-4cea-9469-4966d42658ac",
+                        uuid:"1bedb40c-feb9-44c3-ab05-cd6f5a517b46",
                         txPower:-65
                     },
                 }
             };
 
             ws.send(JSON.stringify(obj2))
+
             const obj3 ={
                 idRelai:1,
                 date: Date.now(),
@@ -112,7 +113,7 @@
                 data:{
                     rssi:-44,
                     iBeacon:{
-                        uuid:"f3125a15-3f7e-4cea-9469-4966d42658ac",
+                        uuid:"1bedb40c-feb9-44c3-ab05-cd6f5a517b46",
                         txPower:-65
                     },
                 }
@@ -120,13 +121,73 @@
 
             ws.send(JSON.stringify(obj3))
         }
+
+        function eb3etHamza(){
+            //////////////////////////////////////
+
+            const obj11 ={
+                idRelai:2,
+                date: Date.now(),
+                event:"beaconData",
+                data:{
+                    rssi:-50,
+                    iBeacon:{
+                        uuid:"c9c4d054-4fb0-4a1f-8bef-1ed8f99ffe62",
+                        txPower:-65
+                    },
+                }
+            };
+
+            ws.send(JSON.stringify(obj11))
+
+
+            const obj22 ={
+                idRelai:3,
+                date: Date.now(),
+                event:"beaconData",
+                data:{
+                    rssi:-20,
+                    iBeacon:{
+                        uuid:"c9c4d054-4fb0-4a1f-8bef-1ed8f99ffe62",
+                        txPower:-65
+                    },
+                }
+            };
+
+            ws.send(JSON.stringify(obj22))
+
+            const obj33 ={
+                idRelai:1,
+                date: Date.now(),
+                event:"beaconData",
+                data:{
+                    rssi:-90,
+                    iBeacon:{
+                        uuid:"c9c4d054-4fb0-4a1f-8bef-1ed8f99ffe62",
+                        txPower:-65
+                    },
+                }
+            };
+
+            ws.send(JSON.stringify(obj33))
+        }
+
+
+
+
+
+
+        ///////////////////////////////////
     </script>
 </head>
 <body>
 
 
 <button onclick="eb3et()"> eb3t position exact</button>
-<button onclick="eb3etRelai()">eb3t 3 lectures</button>
+<button onclick="eb3etRelai()">eb3t taki</button>
+<button onclick="eb3etHamza()">eb3t hamza</button>
+
+
 
 </body>
 </html>
