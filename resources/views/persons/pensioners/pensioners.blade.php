@@ -1,4 +1,4 @@
-@extends('partials/page')
+@extends('partials/nav_side')
 
 @section('title', 'Pensionnaires')
 

@@ -100,27 +100,9 @@ class WebSocketController extends Controller implements MessageComponentInterfac
     function onMessage(ConnectionInterface $conn, $msg)
     {
 
-     /*   foreach ($this->clients as $client) {
-            $client->send($msg);
-        }
-        $data = json_decode($msg);
-*/
-        //////////////////////////////////
-     /*   if (isset($this->subscriptions[$conn->resourceId])) {
-            $target = $this->subscriptions[$conn->resourceId];
-            foreach ($this->subscriptions as $id=>$channel) {
-
-                $this->persons[$id]->send("hello");
-
-            }
-        }*/
-
-        ////////////////////////////
-        // $conn->send($msg);
 
         $event = json_decode($msg);
-     //  $uuid =  $event->data->iBeacon->uuid ;
-     //   echo "this is my event :\n".$uuid;
+
 
 
         $this->mEventsController->onNewEvent($event, function ($person, $roomId,$alert , $position) {

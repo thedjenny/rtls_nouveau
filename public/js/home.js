@@ -284,7 +284,12 @@ function updateList() {
 
 
 function addPersonM(room, person, position) {
-
+  /* if (personExistsInRooms(person)) {
+        deleteFromAllRoomsExceptTheOne(person, room);
+    } else {
+        addPersonToRoom(person, room);
+    }
+*/
     console.log(room);
     if (typeof room == "number")
         room = chambres_list[room - 1];
@@ -618,8 +623,8 @@ if ("WebSocket" in window) {
     // The browser doesn't support WebSocket
     alert("WebSocket NOT supported by your Browser!");
 }
-
 /*
+
 addPerson(3, {id: 1, name: "emulator"});
 addPerson(3, {id: 2, name: "hamza"});
 addPerson(3, {id: 3, name: "mohamed"});

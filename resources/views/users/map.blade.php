@@ -4,6 +4,14 @@
 @section('css')
     <link rel="stylesheet" href="{{asset('leaflet/leaflet.css')}}"/>
     <link rel="stylesheet" href="{{asset('/css/plan_ch.css')}}"/>
+    <style>
+        img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+        }
+
+    </style>
 
 @stop
 
@@ -389,7 +397,7 @@
             var customPin = L.divIcon({
                 className: 'location-pin',
                 //remplacer les icones par des images
-                html: "<div style='text-align: center' style='width: auto'> " + "<i class=\"fas fa-user\"></i>" + " </div>"
+                html: "<div style='text-align: center' style='width: auto'> " + "<img src=\"{{$userimg}}\">" + " </div>"
                 , iconSize: [100, 50],
                 iconAnchor: [20, 20],
                 popupAnchor: [27, -21],
