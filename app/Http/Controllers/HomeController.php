@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Piece;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,8 +26,13 @@ class HomeController extends Controller
     public function index()
     {
         $rooms = Piece::all();
+        $admin = Admin::find(1);
+        $name = $admin->firstname;
 
-        return view('home.home')->with('rooms', $rooms);
+
+
+        return view('home.home')->with(['rooms'=> $rooms,
+                                             'name'=>$name]);
     }
 
     public function map(){

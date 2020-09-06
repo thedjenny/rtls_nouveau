@@ -5,9 +5,7 @@
 
 @section('css')
     <link rel="stylesheet" href="./css/plan_ch.css"/>
-    <style>
 
-    </style>
 @stop
 
 @section('content')
@@ -724,7 +722,7 @@
                                 <tbody>
                                 @foreach($rooms as $r)
                                     <tr id="tr_{{$loop->iteration}}"
-                                        class="{{$r->type == \App\Enums\PieceTypes::SOINS ? 'is-soins' : ''}} {{$r->isInterdite == 1 ? 'is-interdite' : ''}}"
+                                        class="{{$r->isInterdite == 1 ? 'is-interdite' : ''}}"
                                         onmouseover="chListHover({{$loop->iteration}})">
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$r->name}}</td>
@@ -734,7 +732,7 @@
                                                data-json_index="{{$loop->index}}"
                                                data-name="{{$r->name}}"
                                                data-is_interdite="{{$r->isInterdite}}"
-                                               data-is_soins="{{$r->type == \App\Enums\PieceTypes::SOINS}}"
+
                                                data-remodal-target="room-edit"
                                                data-toggle="tooltip"
                                                data-original-title="Modifier le nom et le type de la piece">Modifier</a>
@@ -775,13 +773,13 @@
                 var id = btn.data('id');
                 var name = btn.data('name');
                 var isInterdite = btn.data('is_interdite');
-                var isSoins = btn.data('is_soins');
+
                 var jsonIndex = btn.data('json_index');
 
                 $('#room-edit .id').val(id);
                 $('#room-edit .name').val(name);
                 $('#room-edit .is-interdite').prop('checked', isInterdite);
-                $('#room-edit .is-soins').prop('checked', isSoins);
+
                 var data = JSON.stringify(rooms[jsonIndex]);
                 $('#room-edit .data').val(data);
             });

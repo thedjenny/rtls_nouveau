@@ -70,14 +70,7 @@
                 </div>
             </div>
         </form>
-        <ul class="navbar-nav float-right">
-            <li>
-                <a href="/logout" class="text-black">
-                    <i class="fas fa-sign-out-alt"></i>
-                    Déconnexion
-                </a>
-            </li>
-        </ul>
+
     </nav>
     <!-- /.navbar -->
 
@@ -102,68 +95,73 @@
                 </div>
             </div>
 
-            <!-- Sidebar Menu -->
+           <!-- Sidebar Menu -->
             <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
-                    <li class="nav-header ">DASHBOARD</li>
-                    <li>
-                        <a class="nav-link text-primary" href="{{route('home')}}">
-                            <i class="fa fa-map-marker"></i>
-                            <span>Positions en temps réel</span>
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <!-- Add icons to the links using the .nav-icon class
+                         with font-awesome or any other icon font library -->
+                    <li class="nav-item has-treeview menu-open">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                DASHBOARD
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
                         </a>
-                    </li>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{route('home')}}" class="nav-link">
+                                    <i class="fas fa-map-marker-alt nav-icon"></i>
 
+                                    <p>Position en temps reél</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="nav-header">PERSONNES</li>
-                    <li>
-                        <a class="nav-link" href="{{route('pensioners')}}">
-                            <i class="fas fa-blind"></i>
-                            <span> Pensionnaires</span>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Gestion des utilisateurs
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-header">ÉVÉNEMENTS</li>
+                    <li class="nav-item">
+                        <a href="{{route('events.alerts')}}" class="nav-link">
+                            <i class="nav-icon fas fa-bell text-danger"></i>
+                            <p>Alèrtes</p>
+                        </a>
+                    </li>
+                    <li class="nav-header">ADMINISTRATION</li>
+                    <li class="nav-item">
+                        <a href="{{route('rooms')}}" class="nav-link">
+                            <i class="fas fa-hotel nav-icon"></i>
+                            <p>Gestion des pièces</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('admins')}}" class="nav-link">
+                            <i class="fas fa-users-cog nav-icon"></i>
+                            <p>Gestion des Admins</p>
+                        </a>
+                    </li>
+                    <li class="nav-header">COMPTE</li>
+                    <li class="nav-item">
+                        <a href="{{route('profile')}}" class="nav-link">
+                            <i class="nav-icon fas fa-user-circle"></i>
+                            <p class="text">Gestion profile</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/logout" class="nav-link">
+                            <i class="nav-icon fas fa-sign-out-alt"></i>
+                            <p>Deconnexion</p>
                         </a>
                     </li>
 
-                    <li>
-                        <a class="nav-link" href="{{route('employees')}}">
-                            <i class="fas fa-user-tie"></i>
-                            <span> Gestion des employés</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-header">ÉVÉNEMENT</li>
-                    <li>
-                        <a class="nav-link nav-link text-danger" href="{{route('events.alerts')}}">
-                            <i class="fas fa-bell"></i>
-                            <span>Alertes</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link text-info" href="{{route('events.seances')}}">
-                            <i class="fas fa-stethoscope"></i>
-                            <span>Séances de soins</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-header">ADMINSTRATION</li>
-                    <li>
-                        <a class="nav-link" href="{{route('profile')}}">
-                            <i class="fas fa-user"></i>
-                            <span>Profil</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="{{route('admins')}}">
-                            <i class="fas fa-chalkboard-teacher"></i>
-                            <span> Géstion des admins</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a class="nav-link" href="{{route('rooms')}}">
-                            <i class="fas fa-hotel"></i>
-                            <span> Géstion des pièces</span>
-                        </a>
-                    </li>
                 </ul>
-
             </nav>
             <!-- /.sidebar-menu -->
         </div>

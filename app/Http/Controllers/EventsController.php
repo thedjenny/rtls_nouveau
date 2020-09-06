@@ -53,51 +53,7 @@ class EventsController extends Controller
     private static $personsOldPosition = [];
     private static $position = [];
 
-    function getReversedUUID(String $uuid){
 
-        $espUUID = explode("-",$uuid);
-        $strFinal = "";
-        foreach($espUUID as $uuid){
-
-            if(strlen($uuid)==12){
-                $strDouze= str_split ($uuid,  4);
-                $str1 = $strDouze[0];
-                $str2=$strDouze[1].$strDouze[2];
-
-                $str="" ;
-                for($i=0;$i<strlen($str1)-1;$i = $i+2){
-                    $str = $str1[$i].$str1[$i+1].$str;
-                }
-                $strFinal= $str ."-". $strFinal;
-
-                $str="" ;
-                for($i=0;$i<strlen($str2)-1;$i = $i+2){
-                    $str = $str2[$i].$str2[$i+1].$str;
-                }
-                $strFinal= $str ."-". $strFinal;
-
-            }
-            else{
-                $str="" ;
-                for($i=0;$i<strlen($uuid)-1;$i = $i+2){
-                    $str = $uuid[$i].$uuid[$i+1].$str;
-                }
-                if(strlen($strFinal)){
-                    if(strlen($strFinal)==9){
-                        $strFinal= $str .$strFinal;
-                    }else{
-                        $strFinal= $str ."-".$strFinal;
-                    }
-
-                }else{
-                    $strFinal= "-".$str;
-                }
-            }
-        }
-
-        return $strFinal;
-
-    }
     public function onNewEvent($event, $callback)
     {
 
@@ -107,8 +63,8 @@ class EventsController extends Controller
             $position = [];
             $chambreId = $event->idRelai;
             $personUUID = $event->data->iBeacon->uuid;
-            $personUUID2 = $this->getReversedUUID($personUUID);
-           // echo"\n \n my new uuid ".$personUUID2;
+           //$personUUID = $this->getReversedUUID($event->data->iBeacon->uuid);
+           // echo"\n \n my new uuid ".$personUUID;
 
             $person = Person::where("uid_phone", "=", $personUUID)->get();
             $person = $person[0];

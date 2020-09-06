@@ -23,9 +23,9 @@ class AdminsSeeding extends Seeder
                     'updated_at' => \Carbon\Carbon::now(),
                 ],
                 [
-                    'firstname' => 'berrahal',
-                    'lastname' => 'ouala',
-                    'email' => 'ouala@a.com',
+                    'firstname' => 'seghiri',
+                    'lastname' => 'taki',
+                    'email' => 'taki@a.com',
                     'password' => bcrypt('123456'),
                     'created_at' => \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now(),

@@ -51,9 +51,12 @@ class WebSocketController extends Controller implements MessageComponentInterfac
         echo "$e\n";
         $conn->close();
     }
-    function getReversedUUID(String $uuid){
 
-        $espUUID = explode("-",uuid);
+
+    function getReversedUUID(String $uuid)
+    {
+
+        $espUUID = explode("-",$uuid);
         $strFinal = "";
         foreach($espUUID as $uuid){
 
@@ -92,19 +95,22 @@ class WebSocketController extends Controller implements MessageComponentInterfac
                 }
             }
         }
+        $i = 28;
+        while($i<strlen($strFinal)-1){
+            $strFinal[$i]=$strFinal[$i+1];
+            $i++;
+        }
+
+        $strFinal = substr($strFinal, 0, -1);
 
         return $strFinal;
-
     }
 
     function onMessage(ConnectionInterface $conn, $msg)
     {
-
-
         $event = json_decode($msg);
-
-
-
+        $event->data->iBeacon->uuid = $this->getReversedUUID($event->data->iBeacon->uuid);
+        echo"\n my new UUID from onMessage : ".$event->data->iBeacon->uuid;
         $this->mEventsController->onNewEvent($event, function ($person, $roomId,$alert , $position) {
             $res = json_encode(["person" => $person,
                 "room" => $roomId,
