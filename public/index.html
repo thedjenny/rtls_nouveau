@@ -41,7 +41,7 @@
 
             ws.onmessage = function (evt) {
                 var received_msg = evt.data;
-                console.log(received_msg);
+                console.log("this is received" + received_msg);
 
             };
 
@@ -80,10 +80,10 @@
                 date: Date.now(),
                 event:"beaconData",
                 data:{
-                    rssi:-60,
+                    rssi:-70,
                     iBeacon:{
-                        uuid:"9e9f04fe-ba6d-5088-1943-36ffb79a8eb1",
-                        txPower:-65
+                        uuid:"d851924b-1243-430f-8af1-a73176331abb",
+                        txPower:-60
                     },
                 }
             };
@@ -92,14 +92,14 @@
 
 
             const obj2 ={
-                idRelai:3,
+                idRelai:5,
                 date: Date.now(),
                 event:"beaconData",
                 data:{
-                    rssi:-43,
+                    rssi:-47,
                     iBeacon:{
-                        uuid:"9e9f04fe-ba6d-5088-1943-36ffb79a8eb1",
-                        txPower:-65
+                        uuid:"d851924b-1243-430f-8af1-a73176331abb",
+                        txPower:-60
                     },
                 }
             };
@@ -107,14 +107,14 @@
             ws.send(JSON.stringify(obj2))
 
             const obj3 ={
-                idRelai:1,
+                idRelai:6,
                 date: Date.now(),
                 event:"beaconData",
                 data:{
-                    rssi:-44,
+                    rssi:-82,
                     iBeacon:{
-                        uuid:"9e9f04fe-ba6d-5088-1943-36ffb79a8eb1",
-                        txPower:-65
+                        uuid:"d851924b-1243-430f-8af1-a73176331abb",
+                        txPower:-60
                     },
                 }
             };

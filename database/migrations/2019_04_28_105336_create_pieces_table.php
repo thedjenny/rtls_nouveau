@@ -18,7 +18,7 @@ class CreatePiecesTable extends Migration
             $table->bigInteger('cart_id')->unsigned();
             $table->string('name');
             $table->enum('type', [
-                \App\Enums\PieceTypes::SOINS,
+
                 \App\Enums\PieceTypes::INTERDITE,
                 \App\Enums\PieceTypes::NORMAL,
             ]);

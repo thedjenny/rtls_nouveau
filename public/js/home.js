@@ -308,7 +308,7 @@ function addPersonM(room, person, position) {
         polygonPoints[i] = [room.corners[i].x, room.corners[i].y]
     }
     var poly = L.polygon(polygonPoints);
-    console.log(position)
+    console.log("je suis position " +position)
 
 
     if (position.length > 1) {

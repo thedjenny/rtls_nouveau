@@ -116,7 +116,7 @@ class WebSocketController extends Controller implements MessageComponentInterfac
                 "room" => $roomId,
                 "type"=>"position",
                 "position" =>$position]);
-            echo "\n on message code ".$res ."\n";
+
             foreach ($this->clients as $client) {
                 $client->send($res);
                 if ($alert != null) {
